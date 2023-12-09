@@ -13,9 +13,8 @@ decimal = 0
 
 # MAIN
 numero = cargarDato()
-millones, millares, unidades  = asignarUnidades(numero)
 
-print(millones, millares, unidades) ##
+millones, millares, unidades  = asignarUnidades(numero)
 
 palabra_final = convertir(millones, millares, unidades)
 
