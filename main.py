@@ -1,6 +1,6 @@
 from f_cargarDatos import cargarDato
 from f_convertir import convertir
-from f_ordenarDatos import ordenarPosiciones, asignarUnidades
+from f_ordenarDatos import asignarUnidades
 # Inicializacion variables globales
 unidades = []
 millares = []
@@ -13,6 +13,10 @@ decimal = 0
 
 # MAIN
 numero = cargarDato()
-unidades, millares, millones = asignarUnidades(numero)
+millones, millares, unidades  = asignarUnidades(numero)
 
-print(millones, millares, unidades)
+print(millones, millares, unidades) ##
+
+palabra_final = convertir(millones, millares, unidades)
+
+print(palabra_final.capitalize())

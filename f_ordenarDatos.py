@@ -40,4 +40,4 @@ def asignarUnidades(numeroDesc):
     mil = ordenarPosiciones(mil)
     millon = ordenarPosiciones(millon)
 
-    return unidad, mil, millon
+    return millon, mil, unidad
