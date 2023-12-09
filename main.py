@@ -19,6 +19,6 @@ print(millones, millares, unidades) ##
 
 palabra_final = convertir(millones, millares, unidades)
 
-palabra_final = palabra_final.strip()
+palabra_final = ' '.join(palabra_final.split())
 
 print(palabra_final.capitalize())
