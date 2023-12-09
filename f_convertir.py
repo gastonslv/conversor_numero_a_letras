@@ -44,23 +44,120 @@ def armarPalabra(lista, largo, tipo, unidades):
                     if key == lista[i]:
                         if i == 0 and lista[0] == '1' and lista[1] != '0': # si es en la primera vuelta
                             fragmento_palabra += ' ciento '
+                        elif i == 1 and lista[1] == '1' and lista[2] != '0':
+                            for key, value in unidades[3].items():
+                                if key == (lista[1] + lista[2]):
+                                    fragmento_palabra += value
                         else:
-                            fragmento_palabra += value
-                            if i == 1 and lista[2] != '0':
-                                fragmento_palabra += ' y '
+                            if i == 2 and lista[1] == '1' and lista[2] != '0': 
+                                continue
+                            else:
+                                fragmento_palabra += ' ' + value + ' '
+                                if i == 1 and lista[2] != '0':
+                                    fragmento_palabra += ' y '
 
             fragmento_palabra += ' millones '  
     
     elif tipo == 'mil':
-        pass
-    
+        if largo == 1:
+            if lista[0] == '1':
+                fragmento_palabra = ' mil '
+            else:
+                for key, value in unidades[2].items():
+                    if key == lista[0]:
+                        fragmento_palabra += value
+                
+                fragmento_palabra += ' mil '
+        
+        elif largo == 2:
+
+            if lista[0] == '1' and lista[1] != '0':
+                # aplicamos unidades ordinales
+                for key, value in unidades[3].items():
+                    if key == (lista[0] + lista[1]):
+                        fragmento_palabra += value
+                
+                fragmento_palabra += ' mil '
+        
+            else:
+
+                for i in range(2):
+                    for key, value in unidades[i+1].items():
+                        if key == lista[i]:
+                            fragmento_palabra += value
+                            if i == 0 and lista[1] != '0':
+                                fragmento_palabra += ' y '
+                
+                fragmento_palabra += ' mil '
+        
+        elif largo == 3:
+
+            for i in range(3):
+                for key, value in unidades[i].items():
+                    if key == lista[i]:
+                        if i == 0 and lista[0] == '1' and lista[1] != '0': # si es en la primera vuelta
+                            fragmento_palabra += ' ciento '
+                        elif i == 1 and lista[1] == '1' and lista[2] != '0':
+                            for key, value in unidades[3].items():
+                                if key == (lista[1] + lista[2]):
+                                    fragmento_palabra += value
+                        else:
+                            if i == 2 and lista[1] == '1' and lista[2] != '0': 
+                                continue
+                            else:
+                                fragmento_palabra += ' ' + value + ' '
+                                if i == 1 and lista[2] != '0':
+                                    fragmento_palabra += ' y '
+        
+            fragmento_palabra += ' mil '
+
     elif tipo == 'unidad':
-        pass
+        if largo == 1:
+            if lista[0] == '1':
+                fragmento_palabra = ' mil '
+            else:
+                for key, value in unidades[2].items():
+                    if key == lista[0]:
+                        fragmento_palabra += value
+        
+        elif largo == 2:
+
+            if lista[0] == '1' and lista[1] != '0':
+                # aplicamos unidades ordinales
+                for key, value in unidades[3].items():
+                    if key == (lista[0] + lista[1]):
+                        fragmento_palabra += value
+        
+            else:
+
+                for i in range(2):
+                    for key, value in unidades[i+1].items():
+                        if key == lista[i]:
+                            fragmento_palabra += value
+                            if i == 0 and lista[1] != '0':
+                                fragmento_palabra += ' y '
+        
+        elif largo == 3:
+
+            for i in range(3):
+                for key, value in unidades[i].items():
+                    if key == lista[i]:
+                        if i == 0 and lista[0] == '1' and lista[1] != '0': # si es en la primera vuelta
+                            fragmento_palabra += ' ciento '
+                        elif i == 1 and lista[1] == '1' and lista[2] != '0':
+                            for key, value in unidades[3].items():
+                                if key == (lista[1] + lista[2]):
+                                    fragmento_palabra += value
+                        else:
+                            if i == 2 and lista[1] == '1' and lista[2] != '0': 
+                                continue
+                            else:
+                                fragmento_palabra += ' ' + value + ' '
+                                if i == 1 and lista[2] != '0':
+                                    fragmento_palabra += ' y '
     
     return fragmento_palabra
     
-
-
 def buscarPalabra(lista, largo, tipo):
     
     fragmento_palabra = ''
