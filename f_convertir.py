@@ -1,3 +1,66 @@
+def armarPalabra(lista, largo, tipo, unidades):
+
+    fragmento_palabra = ''
+
+    if tipo == 'millon':
+        if largo == 1:
+            
+            if lista[0] == '1': # excepcion
+                fragmento_palabra += 'Un millon '
+            
+            else:
+                for key, value in unidades[2].items():
+                    if key == lista[0]:
+                        fragmento_palabra += value
+                
+                fragmento_palabra += ' millones '
+        
+        elif largo == 2:
+            
+            if lista[0] == '1' and lista[1] != '0':
+                # aplicamos las unidades ordinales
+
+                for key, value in unidades[3].items():
+                    if key == (lista[0] + lista[1]):
+                        fragmento_palabra += value
+                
+                fragmento_palabra += ' millones '
+            
+            else:
+
+                for i in range(2): # no hay centena
+                    for key, value in unidades[i+1].items():
+                        if key == lista[i]:
+                            fragmento_palabra += value
+                            if i == 0 and lista[1] != '0':
+                                fragmento_palabra += ' y '
+            
+                fragmento_palabra += ' millones '
+
+        elif largo == 3:
+
+            for i in range(3):
+                for key, value in unidades[i].items():
+                    if key == lista[i]:
+                        if i == 0 and lista[0] == '1' and lista[1] != '0': # si es en la primera vuelta
+                            fragmento_palabra += ' ciento '
+                        else:
+                            fragmento_palabra += value
+                            if i == 1 and lista[2] != '0':
+                                fragmento_palabra += ' y '
+
+            fragmento_palabra += ' millones '  
+    
+    elif tipo == 'mil':
+        pass
+    
+    elif tipo == 'unidad':
+        pass
+    
+    return fragmento_palabra
+    
+
+
 def buscarPalabra(lista, largo, tipo):
     
     fragmento_palabra = ''
@@ -14,17 +77,6 @@ def buscarPalabra(lista, largo, tipo):
       "7": 'siete',
       "8": 'ocho',
       "9": 'nueve'
-    }
-    unidadesOrdinales = {
-      "11": 'once',
-      "12": 'doce',
-      "13": 'trece',
-      "14": 'catorce',
-      "15": 'quince',
-      "16": 'dieciseis',
-      "17": 'diecisiete',
-      "18": 'dieciocho',
-      "19": 'diecinueve'
     }
     decena = {
       "1": 'diez',
@@ -48,51 +100,24 @@ def buscarPalabra(lista, largo, tipo):
       "8": 'ochocientos',
       "9": 'novecientos'
     }
-    
+    unidadesOrdinales = {
+      "11": 'once',
+      "12": 'doce',
+      "13": 'trece',
+      "14": 'catorce',
+      "15": 'quince',
+      "16": 'dieciseis',
+      "17": 'diecisiete',
+      "18": 'dieciocho',
+      "19": 'diecinueve'
+    }
+
     unidades.append(centena)             # 0
     unidades.append(decena)              # 1
     unidades.append(unidad)              # 2
     unidades.append(unidadesOrdinales)   # 3
 
-    if largo == 3:
-        for i in range(3):
-            for key, value in unidades[i].items():
-
-                ordinales = ['11','12','13', '14','15','16','17','18','19']
-                if i == 1 and ((lista[1]+lista[2]) in ordinales):
-                    for key, value in unidades[3].items():
-                        if key == (lista[1]+lista[2]):
-                            fragmento_palabra += value
-                            break
-                
-                if key == lista[i]:
-                    fragmento_palabra += value
-    elif largo == 2:
-        for i in range(1, 3):
-            for key, value in unidades[i].items():
-
-                ordinales = ['11','12','13', '14','15','16','17','18','19']
-                if i == 1 and ((lista[1]+lista[2]) in ordinales):
-                    for key, value in unidades[3].items():
-                        if key == (lista[1]+lista[2]):
-                            fragmento_palabra += value
-                            break
-                
-                if key == lista[i]:
-                    fragmento_palabra += value
-    elif largo == 1:
-        for key, value in unidades[2].items():   
-                if key == lista[0]:
-                    fragmento_palabra += value
-    
-    ###
-    
-    if tipo == 'millon':
-        fragmento_palabra += ' millones '
-    elif tipo == 'mil':
-        fragmento_palabra += ' miles '
-    elif tipo == 'unidad':
-        pass
+    fragmento_palabra = armarPalabra(lista, largo, tipo, unidades)
 
     return fragmento_palabra
 
@@ -120,28 +145,3 @@ def convertir(u_millon, u_mil, unidad):
         palabra += buscarPalabra(unidad, len(unidad), 'unidad')
 
     return palabra
-    
-
-"""
-    while not salir:
-      for i in range(len(numero)):
-        if i == 0:
-          for key, value in centena.items():
-            if key[0] == numero[i]:
-              palabra += value + " "
-              break
-        elif i == 1:
-          for key, value in decena.items():
-            if key[0] == numero[i]:
-              if numero[i+1] == '0':
-                palabra += value
-              else:
-                palabra += value + ' y '
-              break
-        elif i == 2:
-          for key, value in unidad.items():
-            if key[0] == numero[i]:
-              palabra += value
-              break
-      salir = True
-"""
