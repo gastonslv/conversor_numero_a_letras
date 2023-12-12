@@ -7,12 +7,13 @@ millares = []
 millones = []
 
 numero = 0
+decimal = 0
 palabra_final = ''
 entero = 0
 decimal = 0
 
 # MAIN
-numero = cargarDato()
+numero, decimal = cargarDato()
 
 millones, millares, unidades  = asignarUnidades(numero)
 
